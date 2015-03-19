@@ -5,10 +5,10 @@
 -- A command line utility for minifying lua source code using the minifier.
 --
 
-local util = require'Util'
-local Parser = require'ParseLua'
-local Format_Mini = require'FormatMini'
-local ParseLua = Parser.ParseLua
+local util = require'util'
+local Parser = require'parselua'
+local Format_Mini = require'formatmini'
+local ParseLua = assert( Parser.ParseLua )
 local PrintTable = util.PrintTable
 
 local function splitFilename(name)

@@ -4,9 +4,9 @@
 -- A command line utility for beautifying lua source code using the beautifier.
 --
 
-local util = require'Util'
-local Parser = require'ParseLua'
-local Format_Beautify = require'FormatBeautiful'
+local util = require'util'
+local Parser = require'parselua'
+local Format_Beautify = require'formatbeautiful'
 local ParseLua = Parser.ParseLua
 local PrintTable = util.PrintTable
 

@@ -1,9 +1,9 @@
 package.path = "../?.lua;" .. package.path
-local Parser          = require'ParseLua'
-local util            = require'Util'
-local FormatIdentity  = require'FormatIdentity'
-local FormatMini      = require'FormatMini'
-local FormatBeautiful = require'FormatBeautiful'
+local Parser          = require'parselua'
+local util            = require'util'
+local FormatIdentity  = require'formatidentity'
+local FormatMini      = require'formatmini'
+local FormatBeautiful = require'formatbeautiful'
 require'strict'
 
 function readAll(file)

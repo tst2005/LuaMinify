@@ -1,9 +1,9 @@
 -- Adapted from Yueliang
 
 package.path = "../?.lua;" .. package.path
-local util = require'Util'
-local Parser = require'ParseLua'
-local Format = require'FormatBeautiful'
+local util = require'util'
+local Parser = require'parselua'
+local Format = require'formatbeautiful'
 
 for w in io.lines("test_lines.txt") do
 	--print(w)

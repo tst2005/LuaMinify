@@ -1,6 +1,6 @@
 require'strict'
-require'ParseLua'
-local util = require'Util'
+require'parselua'
+local util = require'util'
 
 local function debug_printf(...)
 	--[[

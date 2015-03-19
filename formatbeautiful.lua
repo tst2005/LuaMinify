@@ -4,9 +4,9 @@
 -- Returns a beautified version of the code, including comments
 --
 
-local parser = require"ParseLua"
+local parser = require'parselua'
 local ParseLua = parser.ParseLua
-local util = require'Util'
+local util = require'util'
 local lookupify = util.lookupify
 
 local LowerChars = lookupify{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 

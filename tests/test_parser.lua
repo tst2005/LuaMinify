@@ -527,9 +527,9 @@ a = { true, a=1; ["foo"]="bar", }
 ]=]
 
 package.path = "../?.lua;" .. package.path
-local util = require'Util'
-local Parser = require'ParseLua'
-local Format_Mini = require'FormatMini'
+local util = require'util'
+local Parser = require'parselua'
+local Format_Mini = require'formatmini'
 
 local f = io.open("tmp", 'wb')
 f:write(source)

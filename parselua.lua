@@ -10,7 +10,7 @@
 
 require'strict'
 
-local util = require'Util'
+local util = require'util'
 local lookupify = util.lookupify
 
 local WhiteChars = lookupify{' ', '\n', '\t', '\r'}
@@ -26,7 +26,7 @@ local HexDigits = lookupify{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
 							'A', 'a', 'B', 'b', 'C', 'c', 'D', 'd', 'E', 'e', 'F', 'f'}
 
 local Symbols = lookupify{'+', '-', '*', '/', '^', '%', ',', '{', '}', '[', ']', '(', ')', ';', '#'}
-local Scope = require'Scope'
+local Scope = require'scope'
 
 local Keywords = lookupify{
 	'and', 'break', 'do', 'else', 'elseif',
@@ -1408,4 +1408,4 @@ local function ParseLua(src)
 end
 
 return { LexLua = LexLua, ParseLua = ParseLua }
-	
+
