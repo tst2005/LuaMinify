@@ -1,4 +1,4 @@
-
+#!/usr/bin/env lua
 --
 -- CommandlineMinify.lua
 --
@@ -51,16 +51,16 @@ if #arg == 1 then
 		return
 	end
 	--
-	local outf = io.open(outname, 'w')
+	local outf = --[[io.open(outname, 'w') ]] io.stdout
 	if not outf then
 		print("Failed to open `"..outname.."` for writing")
 		return
 	end
 	--
-	outf:write(Format_Mini(ast))
-	outf:close()
+	outf:write(Format_Mini(ast).."\n")
+	if outf ~= io.stdout then outf:close() end
 	--
-	print("Minification complete")
+	--print("Minification complete")
 
 elseif #arg == 2 then
 	--keep the user from accidentally overwriting their non-minified file with 
