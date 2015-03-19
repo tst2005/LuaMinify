@@ -12,7 +12,7 @@ local ParseLua = Parser.ParseLua
 local PrintTable = util.PrintTable
 
 local function splitFilename(name)
-	table.foreach(arg, print)
+	--table.foreach(arg, print)
 	if name:find(".") then
 		local p, ext = name:match("()%.([^%.]*)$")
 		if p and ext then
