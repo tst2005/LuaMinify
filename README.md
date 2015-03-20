@@ -33,7 +33,7 @@ Features/Todo
 -------------
 Features:
 
-    - Lua scanner/parser, which generates a full AST
+    - Lua scanner/parser, which generates a full [AST](http://en.wikipedia.org/wiki/Abstract_syntax_tree)
     - Lua reconstructor
         - minimal
         - full reconstruction (TODO: options, comments)
