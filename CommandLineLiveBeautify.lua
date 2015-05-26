@@ -15,6 +15,7 @@ local PrintTable = util.PrintTable
 while true do
 	io.write('> ')
 	local line = io.read('*line')
+	if not line then break end -- ^D to exit
 	local fileFrom, fileTo = line:match("^file (.*) (.*)")
 	if fileFrom and fileTo then
 		local file = io.open(fileFrom, 'r')
