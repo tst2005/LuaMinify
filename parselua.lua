@@ -586,7 +586,9 @@ local function ParseLua(src)
 			scope.LocalMap[name] = my
 			--
 			return my
-		end]]
+		end
+		]]--
+
 		local scope = Scope:new(parent)
 		scope.RenameVars = scope.ObfuscateLocals
 		scope.ObfuscateVariables = scope.ObfuscateLocals
@@ -597,15 +599,15 @@ local function ParseLua(src)
 	local ParseExpr
 	local ParseStatementList
 	local ParseSimpleExpr, 
-			ParseSubExpr,
-			ParsePrimaryExpr,
-			ParseSuffixedExpr
+		ParseSubExpr,
+		ParsePrimaryExpr,
+		ParseSuffixedExpr
 
 	local function ParseFunctionArgsAndBody(scope, tokenList)
-		local funcScope = CreateScope(scope)
-		if not tok:ConsumeSymbol('(', tokenList) then
-			return false, GenerateError("`(` expected.")
-		end
+	local funcScope = CreateScope(scope)
+	if not tok:ConsumeSymbol('(', tokenList) then
+		return false, GenerateError("`(` expected.")
+	end
 
 		--arg list
 		local argList = {}
