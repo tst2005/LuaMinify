@@ -8,10 +8,17 @@
 -- ParseLua returns an AST, internally relying on LexLua.
 --
 
-require'strict'
+--require'strict'
 
-local util = require'util'
-local lookupify = util.lookupify
+--local util = require'util'
+--local lookupify = util.lookupify
+
+local function lookupify(tb)
+	for _, v in pairs(tb) do
+		tb[v] = true
+	end
+	return tb
+end
 
 local WhiteChars = lookupify{' ', '\n', '\t', '\r'}
 local EscapeLookup = {['\r'] = '\\r', ['\n'] = '\\n', ['\t'] = '\\t', ['"'] = '\\"', ["'"] = "\\'"}
@@ -75,85 +82,81 @@ local function LexLua(src)
 
 		local function tryGetLongString()
 			local start = p
-			if peek() == '[' then
-				local equalsCount = 0
-				local depth = 1
-				while peek(equalsCount+1) == '=' do
-					equalsCount = equalsCount + 1
+			if peek() ~= '[' then return nil end
+
+			local equalsCount = 0
+			local depth = 1
+			while peek(equalsCount+1) == '=' do
+				equalsCount = equalsCount + 1
+			end
+			if peek(equalsCount+1) ~= '[' then return nil end
+
+			--start parsing the string. Strip the starting bit
+			for _ = 0, equalsCount+1 do get() end
+
+			--get the contents
+			local contentStart = p
+			while true do
+				--check for eof
+				if peek() == '' then
+					generateError("Expected `]"..string.rep('=', equalsCount).."]` near <eof>.", 3)
 				end
-				if peek(equalsCount+1) == '[' then
-					--start parsing the string. Strip the starting bit
-					for _ = 0, equalsCount+1 do get() end
 
-					--get the contents
-					local contentStart = p
-					while true do
-						--check for eof
-						if peek() == '' then
-							generateError("Expected `]"..string.rep('=', equalsCount).."]` near <eof>.", 3)
-						end
-
-						--check for the end
-						local foundEnd = true
-						if peek() == ']' then
-							for i = 1, equalsCount do
-								if peek(i) ~= '=' then foundEnd = false end
-							end
-							if peek(equalsCount+1) ~= ']' then
-								foundEnd = false
-							end
-						else
-							if peek() == '[' then
-								-- is there an embedded long string?
-								local embedded = true
-								for i = 1, equalsCount do
-									if peek(i) ~= '=' then
-										embedded = false
-										break
-									end
-								end
-								if peek(equalsCount + 1) == '[' and embedded then
-									-- oh look, there was
-									depth = depth + 1
-									for i = 1, (equalsCount + 2) do
-										get()
-									end
-								end
-							end
-							foundEnd = false
-						end
-						--
-						if foundEnd then
-							depth = depth - 1
-							if depth == 0 then
+				--check for the end
+				local foundEnd = true
+				if peek() == ']' then
+					for i = 1, equalsCount do
+						if peek(i) ~= '=' then foundEnd = false end
+					end
+					if peek(equalsCount+1) ~= ']' then
+						foundEnd = false
+					end
+				else
+					if peek() == '[' then
+						-- is there an embedded long string?
+						local embedded = true
+						for i = 1, equalsCount do
+							if peek(i) ~= '=' then
+								embedded = false
 								break
-							else
-								for i = 1, equalsCount + 2 do
-									get()
-								end
 							end
-						else
+						end
+						if peek(equalsCount + 1) == '[' and embedded then
+							-- oh look, there was
+							depth = depth + 1
+							for i = 1, (equalsCount + 2) do
+								get()
+							end
+						end
+					end
+					foundEnd = false
+				end
+				--
+				if foundEnd then
+					depth = depth - 1
+					if depth == 0 then
+						break
+					else
+						for i = 1, equalsCount + 2 do
 							get()
 						end
 					end
-
-					--get the interior string
-					local contentString = src:sub(contentStart, p-1)
-
-					--found the end. Get rid of the trailing bit
-					for i = 0, equalsCount+1 do get() end
-
-					--get the exterior string
-					local longString = src:sub(start, p-1)
-
-					--return the stuff
-					return contentString, longString
 				else
-					return nil
+					get()
 				end
-			else
-				return nil
 			end
+
+			--get the interior string
+			local contentString = src:sub(contentStart, p-1)
+
+			--found the end. Get rid of the trailing bit
+			for i = 0, equalsCount+1 do get() end
+
+			--get the exterior string
+			local longString = src:sub(start, p-1)
+
+			--return the stuff
+			return contentString, longString
 		end
 
 		--main token emitting loop
