@@ -18,6 +18,9 @@ local UpperChars = lookupify{'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
 							 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'}
 local Digits = lookupify{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'}
 
+--local FormatIndent = "    "
+local FormatIndent = "\t"
+
 local function Format_Beautify(ast, oneline)
 --	oneline= true
 	local formatStatlist, formatExpr
@@ -26,7 +29,7 @@ local function Format_Beautify(ast, oneline)
 	
 	local function getIndentation()
 		if oneline then return "" end
-		return string.rep("    ", indent)
+		return string.rep(FormatIndent, indent)
 	end
 	local function getEOL(other)
 		if oneline then return other or ";\n" end
