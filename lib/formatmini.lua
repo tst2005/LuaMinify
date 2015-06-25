@@ -1,8 +1,15 @@
 
-local parser = require'parselua'
-local ParseLua = parser.ParseLua
-local util = require'util'
-local lookupify = util.lookupify
+--local parser = require'parselua'
+--local ParseLua = parser.ParseLua
+--local util = require'util'
+--local lookupify = util.lookupify
+
+local function lookupify(tb)
+	for _, v in pairs(tb) do
+		tb[v] = true
+	end
+	return tb
+end
 
 --
 -- FormatMini.lua
