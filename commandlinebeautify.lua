@@ -51,16 +51,17 @@ if #arg == 1 then
 		return
 	end
 	--
-	local outf = io.open(outname, 'w')
+	local outf = --[[io.open(outname, 'w')]] io.stdout
 	if not outf then
 		print("Failed to open '"..outname.."' for writing")
 		return
 	end
 	--
 	outf:write(Format_Beautify(ast))
-	outf:close()
-	--
-	print("Beautification complete")
+	if outf ~= io.stdout then
+		outf:close()
+		print("Beautification complete")
+	end
 
 elseif #arg == 2 then
 	--keep the user from accidentally overwriting their non-minified file with 

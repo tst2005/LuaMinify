@@ -68,6 +68,12 @@ local function LexLua(src)
 			n = n or 0
 			return src:sub(p+n,p+n)
 		end
+		local function peeks(n, n2)
+			n = n or 0
+			n2 = n2 or n
+			return src:sub(p+n, p+n2)
+		end
+
 		local function consume(chars)
 			local c = peek()
 			for i = 1, #chars do
@@ -76,8 +82,9 @@ local function LexLua(src)
 		end
 
 		--shared stuff
-		local function generateError(err)
-			return error(">> :"..line..":"..char..": "..err, 0)
+		local function generateError(err, lvl)
+			lvl = lvl or 0
+			return error(">> :"..line..":"..char..": "..err, lvl)
 		end
 
 		local function tryGetLongString()
@@ -168,8 +175,9 @@ local function LexLua(src)
 			local leadingWhite = ''
 			local longStr = false
 			while true do
-				local c = peek()
-				if c == '#' and peek(1) == '!' and line == 1 then
+				--local c = peek()
+				if line == 1 and peeks(0,1) == "#!" then
+--				--if c == '#' and peek(1) == '!' and line == 1 then
 					-- #! shebang for linux scripts
 					get()
 					get()
@@ -190,6 +198,7 @@ local function LexLua(src)
 					leadingWhite = ""
 					table.insert(leading, token)
 				end
+				local c = peek()
 				if c == ' ' or c == '\t' then
 					--whitespace
 					--leadingWhite = leadingWhite..get()
@@ -233,7 +242,7 @@ local function LexLua(src)
 			if leadingWhite ~= "" then
 				local token = {
 					Type = 'Comment',
-					CommentType = longStr and 'LongComment' or 'Com mnment',
+					CommentType = longStr and 'LongComment' or 'Comment', -- TYPO 'Com mnment' ??
 					Data = leadingWhite,
 					Line = line,
 					Char = char,
@@ -524,7 +533,7 @@ local function ParseLua(src)
 	-- No longer needed: handled in Scopes now local GlobalVarGetMap = {} 
 	local VarDigits = {'_', 'a', 'b', 'c', 'd'}
 	local function CreateScope(parent)
-		--[[
+--[[
 		local scope = {}
 		scope.Parent = parent
 		scope.LocalList = {}
@@ -590,7 +599,7 @@ local function ParseLua(src)
 			--
 			return my
 		end
-		]]--
+]]--
 
 		local scope = Scope:new(parent)
 		scope.RenameVars = scope.ObfuscateLocals

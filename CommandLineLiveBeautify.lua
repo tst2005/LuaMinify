@@ -1,3 +1,11 @@
+#!/bin/sh
+
+_=[[
+	: ${LUA:=$(command -v lua)}
+	LUA_PATH='./?.lua;./?/init.lua;./lib/?.lua;./lib/?/init.lua;;'
+	exec "$LUA" "$0" "$@"
+	exit $?
+]]
 
 --
 -- beautify.interactive

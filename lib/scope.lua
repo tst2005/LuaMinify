@@ -1,3 +1,5 @@
+local table = require "table"
+
 local Scope = {
 	new = function(self, parent)
 		local s = {
