@@ -5,10 +5,17 @@
 -- Returns a beautified version of the code, including comments
 --
 
-local parser = require'parselua'
-local ParseLua = parser.ParseLua
-local util = require'util'
-local lookupify = util.lookupify
+--local parser = require'parselua'
+--local ParseLua = parser.ParseLua
+--local util = require'util'
+--local lookupify = util.lookupify
+
+local function lookupify(tb)
+	for _, v in pairs(tb) do
+		tb[v] = true
+	end
+	return tb
+end
 
 local LowerChars = lookupify{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 
 							 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 
