@@ -43,6 +43,10 @@ local Keywords = lookupify{
 };
 
 local function LexLua(src)
+	if type(src) ~= "string" then
+		error("bad argument #1 to 'LexLua' (string expected, got "..type(src).. ")", 2)
+	end
+
 	--token dump
 	local tokens = {}
 
