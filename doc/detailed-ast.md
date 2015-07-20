@@ -1,27 +1,39 @@
+# About AstType
 
-# BinopExpr
+For each following type, there exists a field `AstType` of this value.
+
+```
+{
+  AstType = "BooleanExpr",
+  Tokens = foo,
+  Value = bar,
+}
+```
+
+## BinopExpr
+
  * Lhs
  * Op
  * OperatorPrecedence
  * Rhs
  * Tokens
 
-# BooleanExpr
+## BooleanExpr
  * Tokens
  * Value
 
-# CallExpr
+## CallExpr
  * Base
  * Tokens
 
-# ConstructorExpr
+## ConstructorExpr
  * EntryList
  * Tokens
 
-# DotsExpr
+## DotsExpr
  * Tokens
 
-# Function
+## Function
  * Arguments
  * Body
  * IsLocal = true|false
@@ -30,95 +42,95 @@
  * Tokens
  * VarArg = true|false
 
-# IndexExpr
+## IndexExpr
  * Base
  * Index
  * Tokens
 
-# MemberExpr
+## MemberExpr
  * Base
  * Ident
  * Indexer
  * Tokens
 
-# NilExpr
+## NilExpr
  * Tokens
 
-# NumberExpr
+## NumberExpr
  * Tokens
  * Value
 
-# Parentheses
+## Parentheses
  * Inner
  * Tokens
 
-# StringCallExpr
+## StringCallExpr
  * Base
  * Tokens
 
-# StringExpr
+## StringExpr
  * Tokens
  * Value
 
-# TableCallExpr
+## TableCallExpr
  * Base
  * Tokens
 
-# UnopExpr
+## UnopExpr
  * Op
  * OperatorPrecedence
  * Rhs
  * Tokens
 
-# VarExpr
+## VarExpr
  * Name
  * Tokens
  * Variable
 
-# AssignmentStatement
+## AssignmentStatement
  * Lhs
  * Rhs
  * Tokens
 
-# BreakStatement
+## BreakStatement
  * Tokens
 
-# CallStatement
+## CallStatement
  * Expression
  * Tokens
 
-# DoStatement
+## DoStatement
  * Body
  * Tokens
 
-# Eof
+## Eof
  * Tokens
 
-# GenericForStatement
+## GenericForStatement
  * Body
  * Generators
  * Scope
  * Tokens
  * VariableList
 
-# GotoStatement
+## GotoStatement
  * Label
  * Tokens
 
-# IfStatement
+## IfStatement
  * Clauses
  * Tokens
 
-# LabelStatement
+## LabelStatement
  * Label
  * Tokens
 
-# LocalStatement
+## LocalStatement
  * InitList
  * LocalList
  * Tokens
 
-# NumericForStatement
+## NumericForStatement
  * Body
  * End
  * Scope
@@ -126,7 +138,7 @@
  * Tokens
  * Variable
 
-# RepeatStatement
+## RepeatStatement
  * Body
  * End
  * Scope
@@ -134,15 +146,15 @@
  * Tokens
  * Variable
 
-# ReturnStatement
+## ReturnStatement
  * Tokens
 
-# WhileStatement
+## WhileStatement
  * Body
  * Condition
  * Tokens
 
-# Statlist
+## Statlist
  * Body =
  * * Arguments =
  * Scope =
